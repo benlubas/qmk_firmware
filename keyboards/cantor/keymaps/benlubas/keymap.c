@@ -29,15 +29,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }; 
 
 layer_state_t layer_state_set_user(layer_state_t state) {
-    switch (get_highest_layer(state)) {
+    uint16_t highest_layer = get_highest_layer(state);
+    switch (highest_layer) {
+    case MOUSE_L:
     case GAME_L:
     case NAV_L:
-    case MOUSE_L:
-        setPinInputLow(C13);
-        break;
+      setPinInputLow(C13);
+      break;
     default: 
-        setPinInputHigh(C13);
-        break;
+      setPinInputHigh(C13);
+      break;
+    }
+    if (highest_layer == GAME_L || highest_layer == MOUSE_L) { 
+      combo_disable();
+    } else {
+      combo_enable();
     }
   return state;
 }
