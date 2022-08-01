@@ -8,6 +8,10 @@
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
+#define COMBO_COUNT 5
+
+#define COMBO_ONLY_FROM_LAYER 0
+#define SPLIT_LED_STATE_ENABLE
 
 #define DIRECT_PINS {{B1, B10, A8, B15, B14, B13}, \
                      {B9, B8, B5, B4, B3, A15}, \
@@ -24,10 +28,19 @@
 
 /* Top left key on left half */
 #define BOOTMAGIC_LITE_ROW    0
-#define BOOTMAGIC_LITE_COLUMN 0
+#define BOOTMAGIC_LITE_COLUMN 1
 /* Top right key on right half */
 #define BOOTMAGIC_LITE_ROW_RIGHT    4
-#define BOOTMAGIC_LITE_COLUMN_RIGHT 5
+#define BOOTMAGIC_LITE_COLUMN_RIGHT 4
+
+
+/* MOUSE EMULATION */ 
+
+#define MOUSEKEY_DELAY 5
+#define MOUSEKEY_MOVE_DELTA 4
+#define MOUSEKEY_TIME_TO_MAX 60
+
+
 
 /*
  * Feature disable options
