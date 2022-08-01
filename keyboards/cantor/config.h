@@ -8,7 +8,7 @@
 /* key matrix size */
 #define MATRIX_ROWS 8
 #define MATRIX_COLS 6
-#define COMBO_COUNT 5
+#define COMBO_COUNT 8
 
 #define COMBO_ONLY_FROM_LAYER 0
 #define SPLIT_LED_STATE_ENABLE

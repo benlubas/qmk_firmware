@@ -1,6 +1,7 @@
 
 #include QMK_KEYBOARD_H
 
+
 #define HOME_L 0
 #define NAV_L 1
 #define MOUSE_L 2
@@ -47,12 +48,18 @@ const uint16_t PROGMEM boot_combo[] = {KC_X, KC_C, KC_V, KC_B, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {KC_P, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM gl_combo[] = {KC_Q, KC_W, KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM mouse_combo[] = {KC_J, KC_K, KC_L, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM bkspc_combo[] = {KC_D, KC_F, COMBO_END};
+const uint16_t PROGMEM tab_combo[] = {KC_S, KC_F, COMBO_END};
+const uint16_t PROGMEM home_combo[] = {KC_E, KC_R, COMBO_END};
 combo_t key_combos[COMBO_COUNT] = {
   COMBO(esc_combo, HOMEESC),
-  COMBO(boot_combo, QK_BOOT),
+  COMBO(bkspc_combo, KC_BSPC), 
+  COMBO(tab_combo, KC_TAB), 
+  COMBO(home_combo, TO(HOME_L)),
+  COMBO(mouse_combo, TO(MOUSE_L)), 
   COMBO(del_combo, KC_DEL),
   COMBO(gl_combo, TO(GAME_L)), 
-  COMBO(mouse_combo, TO(MOUSE_L))
+  COMBO(boot_combo, QK_BOOT)
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
