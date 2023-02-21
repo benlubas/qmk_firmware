@@ -48,7 +48,6 @@ layer_state_t layer_state_set_user(layer_state_t state) {
   return state;
 }
 
-
 const uint16_t PROGMEM esc_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM boot_combo[] = {KC_X, KC_C, KC_V, KC_B, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {KC_P, KC_QUOT, COMBO_END};
@@ -141,23 +140,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   ), 
    /*
     * ┌─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┐
-    * │ TAB │ F7  │ F8  │ F9  │  -  │       │ TAB←│     │     │ TAB→│ BSP │
+    * │ TAB │ F7  │ F8  │ F9  │ F13 │       │ TAB←│     │     │ TAB→│ BSP │
     * ├─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┤
-    * │ F10 │ F4  │ F5  │ F6  │ ENTR│       │  ←  │  ↓  │  ↑  │  →  │ HOME│
+    * │ F10 │ F4  │ F5  │ F6  │ F12 │       │  ←  │  ↓  │  ↑  │  →  │ HOME│
     * ├─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┤
-    * │     │ F1  │ F2  │ F3  │     │       │     │     │     │     │     │
+    * │     │ F1  │ F2  │ F3  │ F11 │       │-----│-----│ SS  │     │     │
     * └─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┘
     *               ┌─────┐                           ┌─────┐
     *               │ GUI ├─────┐               ┌─────┤ ALT │
     *               └─────┤ NAV ├─────┐   ┌─────┤ SPC ├─────┘
     *                     └─────┤ CTL │   │ SYM ├─────┘
     *                           └─────┘   └─────┘
+    * SS = ScreenShot (an area and copy to clipboard)
     */
 
   [3] = LAYOUT_split_3x6_3(
-    KC_TAB,  KC_TAB,   KC_F7,    KC_F8,    KC_F9,    KC_MINUS,                           C(S(KC_TAB)), KC_TRNS, KC_TRNS, C(KC_TAB),KC_BSPC, KC_TRNS,
-    KC_LCTL, KC_F10,   KC_F4,    KC_F5,    KC_F6,    KC_ENT,                             KC_LEFT,   KC_DOWN, KC_UP,   KC_RIGHT, TO(HOME_L), KC_TRNS,
-    KC_LSFT, KC_TRNS,  KC_F1,    KC_F2,    KC_F3,    KC_TRNS,                            KC_TRNS,   KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
+    KC_TAB,  KC_TAB,   KC_F7,    KC_F8,    KC_F9,    KC_F13,                             C(S(KC_TAB)), KC_TRNS, KC_TRNS, C(KC_TAB),  KC_BSPC,    KC_TRNS,
+    KC_LCTL, KC_F10,   KC_F4,    KC_F5,    KC_F6,    KC_F12,                             KC_LEFT,   KC_DOWN, KC_UP,      KC_RIGHT,   TO(HOME_L), KC_TRNS,
+    KC_LSFT, KC_TRNS,  KC_F1,    KC_F2,    KC_F3,    KC_F11,                             KC_TRNS,   KC_TRNS, S(C(KC_PSCR)), KC_TRNS, KC_TRNS,    KC_TRNS,
                                          KC_LGUI, OSL(NAV_L), KC_LCTL,          OSL(SYM_L), KC_SPC, KC_RALT
   ), 
    /*
