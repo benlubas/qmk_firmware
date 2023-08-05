@@ -79,7 +79,7 @@ fp_build.sh: Running QMK Build....
 In the same way that you build any other keyboard, you can do the same for fingerpunch boards. The thing to consider is that there are options for each keyboard that you should be aware of.
 
 For your keyboard, review the fp_build.json to see the possible options. For example:  
- [/keyboards/fingerpunch/ffkb/byomcu/v3](/keyboards/fingerpunch/ffkb/byomcu/v3)
+ [/keyboards/fingerpunch/ffkb/byomcu/v3](./keyboards/fingerpunch/ffkb/byomcu/v3)
 
 Example command:  
 `make fingerpunch/ffkb/byomcu/v3:default CIRQUE_ENABLE=no FP_TRACKBALL_ENABLE=yes RGB_MATRIX_ENABLE=yes FP_EC11=yes CONVERT_TO=stemcell`

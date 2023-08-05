@@ -19,7 +19,7 @@
 // use this matrix if you use the 6 column layout ----------------------------------------------
 
 led_config_t g_led_config = { {
-//COL   00     01      02       03      04      05      06        ROW 
+    //COL   00     01      02       03      04      05      06        ROW
     {  18,     17,     12,      11,      6,      5,      0    },//00
     {  19,     16,     13,      10,      7,      4,      1    },//01
     {  20,     15,     14,       9,      8,      3,      2    },//02
@@ -29,68 +29,68 @@ led_config_t g_led_config = { {
     {  41,     36,     35,      30,     29,     24,     23    },//02
     { NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED, NO_LED  },//03
 }, {
-    // Left
-    {93	, 63}, // Thumb reachy
-    {77	, 55}, // Thumb homing
-    {61	, 50}, // Thumb tucky
-    {81	, 38}, // C5 R3
-    {85	, 25}, // C5 R2
-    {89	, 12}, // C5 R1
-    {74	, 6},  // C4 R1
-    {70	, 20}, // C4 R2
-    {66	, 33}, // C4 R3
-    {52	, 26}, // C3 R3
-    {56	, 12}, // C3 R2
-    {60	, 0},  // C3 R1
-    {43	, 0},  // C2 R1
-    {39	, 12}, // C2 R2
-    {35	, 26}, // C2 R3
-    {17	, 31}, // C1 R3
-    {21	, 18}, // C1 R2
-    {25	, 4},  // C1 R1
-    {7	, 5},  // C0 R1
-    {3	, 19}, // C0 R2
-    {0	, 32}, // C0 R3
-    // Right
-    {129, 63}, // Thumb reachy
-    {145, 55}, // Thumb homing
-    {161, 50}, // Thumb tucky
-    {141, 38}, // C6 R3 (or C5)
-    {137, 25}, // C6 R2 (or C5)
-    {133, 12}, // C6 R1 (or C5)
-    {148, 6},  // C7 R1 (or C4)
-    {152, 20}, // C7 R2 (or C4)
-    {156, 33}, // C7 R3 (or C4)
-    {170, 26}, // C8 R3 (or C3)
-    {166, 12}, // C8 R2 (or C3)
-    {162, 0},  // C8 R1 (or C3)
-    {179, 0},  // C9 R1 (or C2)
-    {183, 12}, // C9 R2 (or C2)
-    {187, 26}, // C9 R3 (or C2)
-    {205, 31}, // C10 R3 (or C1)
-    {201, 18}, // C10 R2 (or C1)
-    {197, 4},  // C10 R1 (or C1)
-    {215, 5},  // C11 R1 (or C0)
-    {219, 19}, // C11 R2 (or C0)
-    {223, 32}  // C11 R3 (or C0)
-}, {       
-    //LEFT               
-    1, 1,  1, // 1, 9,  1, // change to this if you want the thumb home key to be highlighted as a home row key color
-    4, 4,  4,
-    4, 12, 4,
-    4, 12, 4,
-    4, 12, 4,
-    4, 12, 4,
-    1, 1,  1,
-    //RIGHT
-    1, 1,  1, // 1, 9,  1, // change to this if you want the thumb home key to be highlighted as a home row key color
-    4, 4,  4,
-    4, 12, 4,
-    4, 12, 4,
-    4, 12, 4,
-    4, 12, 4,
-    1, 1,  1
-} };
+        // Left
+        {93	, 63}, // Thumb reachy
+        {77	, 55}, // Thumb homing
+        {61	, 50}, // Thumb tucky
+        {81	, 38}, // C5 R3
+        {85	, 25}, // C5 R2
+        {89	, 12}, // C5 R1
+        {74	, 6},  // C4 R1
+        {70	, 20}, // C4 R2
+        {66	, 33}, // C4 R3
+        {52	, 26}, // C3 R3
+        {56	, 12}, // C3 R2
+        {60	, 0},  // C3 R1
+        {43	, 0},  // C2 R1
+        {39	, 12}, // C2 R2
+        {35	, 26}, // C2 R3
+        {17	, 31}, // C1 R3
+        {21	, 18}, // C1 R2
+        {25	, 4},  // C1 R1
+        {7	, 5},  // C0 R1
+        {3	, 19}, // C0 R2
+        {0	, 32}, // C0 R3
+        // Right
+        {129, 63}, // Thumb reachy
+        {145, 55}, // Thumb homing
+        {161, 50}, // Thumb tucky
+        {141, 38}, // C6 R3 (or C5)
+        {137, 25}, // C6 R2 (or C5)
+        {133, 12}, // C6 R1 (or C5)
+        {148, 6},  // C7 R1 (or C4)
+        {152, 20}, // C7 R2 (or C4)
+        {156, 33}, // C7 R3 (or C4)
+        {170, 26}, // C8 R3 (or C3)
+        {166, 12}, // C8 R2 (or C3)
+        {162, 0},  // C8 R1 (or C3)
+        {179, 0},  // C9 R1 (or C2)
+        {183, 12}, // C9 R2 (or C2)
+        {187, 26}, // C9 R3 (or C2)
+        {205, 31}, // C10 R3 (or C1)
+        {201, 18}, // C10 R2 (or C1)
+        {197, 4},  // C10 R1 (or C1)
+        {215, 5},  // C11 R1 (or C0)
+        {219, 19}, // C11 R2 (or C0)
+        {223, 32}  // C11 R3 (or C0)
+    }, {
+        //LEFT
+        1, 1,  1, // 1, 9,  1, // change to this if you want the thumb home key to be highlighted as a home row key color
+        4, 4,  4,
+        4, 12, 4,
+        4, 12, 4,
+        4, 12, 4,
+        4, 12, 4,
+        1, 1,  1,
+        //RIGHT
+        1, 1,  1, // 1, 9,  1, // change to this if you want the thumb home key to be highlighted as a home row key color
+        4, 4,  4,
+        4, 12, 4,
+        4, 12, 4,
+        4, 12, 4,
+        4, 12, 4,
+        1, 1,  1
+    } };
 
 // -----------------------------------------------------------------------------------------------
 
@@ -98,7 +98,7 @@ led_config_t g_led_config = { {
 // use this matrix if you use the 5 column layout ──────────────────────────────────────────┐
 /*
 led_config_t g_led_config = { {
-//COL   00     01   02   03   04   05              ROW 
+//COL   00     01   02   03   04   05              ROW
     { NO_LED,  17,  12,  11,   5,   4          },//00
     { NO_LED,  16,  13,  10,   6,   3          },//01
     { NO_LED,  15,  14,   9,   7,   2          },//02
@@ -122,7 +122,7 @@ led_config_t g_led_config = { {
     { 163,  19 }, { 163,  32 }, { 166,  48 }, { 178,  25 }, { 178,  12 }, { 178,   0 }, { 195,   7 },
    //C3 R2 ▼       C3 R3 ▼       C4 R3 ▼       C4 R2 ▼       C4 R1 ▼       C5 R2 ▼       C5 R3 ▼
     { 194,  20 }, { 193,  33 }, { 206,  42 }, { 209,  30 }, { 211,  17 }
-}, { 
+}, {
     //LEFT
     1, 1, 4, 4, 4, 4,
     4, 4, 1, 4, 4, 4, 4,

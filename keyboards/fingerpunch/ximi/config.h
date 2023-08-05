@@ -19,7 +19,29 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include "keyboards/fingerpunch/src/config.h"
 
+#define COMBO_ONLY_FROM_LAYER 0
+#define COMBO_COUNT 9
+
+#define FP_ENC_1_LAYER_VOLUME         0
+#define FP_ENC_1_LAYER_DPI_POINTING   1
+#define FP_ENC_1_LAYER_SUPER_TAB      4
+#define FP_ENC_1_LAYER_PGUP_PGDN      6
+#define FP_ENC_1_LAYER_ZOOM           3
+#define FP_ENC_1_LAYER_SUPER_CTRL_TAB 5
+#define FP_ENC_1_LAYER_SCROLL_WHEEL   2
+#define FP_ENC_1_LAYER_RGB_MODE       7
+#define FP_ENC_1_LAYER_RGB_HUE        8
+#define FP_ENC_1_LAYER_RGB_SAT        9
+#define FP_ENC_1_LAYER_RGB_VAL        10
+#define ENCODERS_B_REVERSE
+
+#define POINTING_DEVICE_INVERT_X
+#define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+// only required if not setting mouse layer elsewhere
+#define AUTO_MOUSE_DEFAULT_LAYER 7
+#define FP_POINTING_SCROLLING_DPI 0.02
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
+#define FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY 1
 
 /* key matrix size */
 // Rows are doubled-up
@@ -33,6 +55,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_ROW_PINS { GP29, GP28, GP27, GP24 }
+// NOTE: my right half is wired different to the left b/c of a faulty rp2040. these pins need to be
+// switched when building the right side. I wrote a script to make this really easy
+// bin/build_left.sh and bin/build_right.sh
+// #define MATRIX_COL_PINS { GP10, GP11, GP26, GP12, GP13, GP14, GP6, GP16 } // right half only
 #define MATRIX_COL_PINS { GP10, GP11, GP26, GP12, GP13, GP14, GP15, GP16 }
 
 /* COL2ROW or ROW2COL */
@@ -86,39 +112,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     #define RGB_MATRIX_FRAMEBUFFER_EFFECTS
     #define RGB_MATRIX_KEYREACTIVE_ENABLED
     #define ENABLE_RGB_MATRIX_ALPHAS_MODS
-    #define ENABLE_RGB_MATRIX_GRADIENT_UP_DOWN
-    #define ENABLE_RGB_MATRIX_GRADIENT_LEFT_RIGHT
-    #define ENABLE_RGB_MATRIX_BREATHING
-    #define ENABLE_RGB_MATRIX_BAND_SAT
-    #define ENABLE_RGB_MATRIX_BAND_VAL
-    #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_SAT
-    #define ENABLE_RGB_MATRIX_BAND_PINWHEEL_VAL
-    #define ENABLE_RGB_MATRIX_BAND_SPIRAL_SAT
-    #define ENABLE_RGB_MATRIX_BAND_SPIRAL_VAL
-    #define ENABLE_RGB_MATRIX_CYCLE_ALL
-    #define ENABLE_RGB_MATRIX_CYCLE_LEFT_RIGHT
-    #define ENABLE_RGB_MATRIX_CYCLE_UP_DOWN
-    #define ENABLE_RGB_MATRIX_RAINBOW_MOVING_CHEVRON
-    #define ENABLE_RGB_MATRIX_DUAL_BEACON
-    #define ENABLE_RGB_MATRIX_CYCLE_PINWHEEL
-    #define ENABLE_RGB_MATRIX_CYCLE_SPIRAL
-    #define ENABLE_RGB_MATRIX_RAINBOW_BEACON
-    #define ENABLE_RGB_MATRIX_RAINBOW_PINWHEELS
-    #define ENABLE_RGB_MATRIX_RAINDROPS
-    #define ENABLE_RGB_MATRIX_JELLYBEAN_RAINDROPS
-    #define ENABLE_RGB_MATRIX_DIGITAL_RAIN
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
     #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTIWIDE
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_CROSS
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTICROSS
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_NEXUS
-    #define ENABLE_RGB_MATRIX_SOLID_REACTIVE_MULTINEXUS
-    #define ENABLE_RGB_MATRIX_SPLASH
-    #define ENABLE_RGB_MATRIX_MULTISPLASH
-    #define ENABLE_RGB_MATRIX_SOLID_SPLASH
-    #define ENABLE_RGB_MATRIX_SOLID_MULTISPLASH
 #endif
 
 /* Set 0 if debouncing isn't needed */
