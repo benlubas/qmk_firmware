@@ -42,6 +42,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define FP_POINTING_SCROLLING_DPI 0.02
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY 1
+#define SPLIT_USB_DETECT
 
 /* key matrix size */
 // Rows are doubled-up
@@ -55,7 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 // wiring of each half
 #define MATRIX_ROW_PINS { GP29, GP28, GP27, GP24 }
-// NOTE: my right half is wired different to the left b/c of a faulty rp2040. these pins need to be
+// NOTE: my right half is wired different to the left. These pins need to be
 // switched when building the right side. I wrote a script to make this really easy
 // bin/build_left.sh and bin/build_right.sh
 // #define MATRIX_COL_PINS { GP10, GP11, GP26, GP12, GP13, GP14, GP6, GP16 } // right half only
@@ -78,6 +79,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_FULL_DUPLEX   // Enable full duplex operation mode.
 #define SERIAL_USART_TX_PIN GP0     // USART TX pin
 #define SERIAL_USART_RX_PIN GP1     // USART RX pin
+// NOTE: this needs to be changed when building the right side as well
+// #define SERIAL_USART_TX_PIN GP0
+// #define SERIAL_USART_RX_PIN GP1
 
 #define RGB_DI_PIN GP25
 #ifdef RGBLIGHT_ENABLE
