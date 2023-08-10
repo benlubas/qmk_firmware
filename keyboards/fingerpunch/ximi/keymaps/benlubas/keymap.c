@@ -19,6 +19,7 @@ enum combos {
     XCVB_BOOT,
     RFTG_RESET,
     RGB_LAYER,
+    CLR_EPROM,
 };
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
@@ -45,6 +46,7 @@ const uint16_t PROGMEM gl_combo[] = {KC_Q, KC_W, KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM boot_combo[] = {KC_X, KC_C, KC_V, KC_B, COMBO_END};
 const uint16_t PROGMEM reset_combo[] = {KC_R, KC_T, KC_F, KC_G, COMBO_END};
 const uint16_t PROGMEM rgb_combo[] = {KC_R, KC_G, KC_B, COMBO_END};
+const uint16_t PROGMEM eprom_combo[] = {KC_E, KC_D, KC_R, KC_F, COMBO_END};
 
 combo_t key_combos[] = {
     [JK_ESC] = COMBO(esc_combo, KC_ESC),
@@ -56,6 +58,7 @@ combo_t key_combos[] = {
     [XCVB_BOOT] = COMBO(boot_combo, QK_BOOT),
     [RFTG_RESET] = COMBO(reset_combo, QK_RBT),
     [RGB_LAYER] = COMBO(rgb_combo, TO(_RGB)),
+    [CLR_EPROM] = COMBO(eprom_combo, EE_CLR),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
