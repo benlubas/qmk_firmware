@@ -32,13 +32,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 // when it's released
             }
             break;
-        case FP_SCROLL_MOMENT:
-            if (record->event.pressed) {
-                layer_on(_MOUSE);
-            } else {
-                layer_off(_MOUSE);
-            }
-            break;
     }
     return 1;
 };

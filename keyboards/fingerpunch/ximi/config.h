@@ -39,10 +39,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
 // only required if not setting mouse layer elsewhere
 #define AUTO_MOUSE_DEFAULT_LAYER 7
-#define FP_POINTING_SCROLLING_DPI 0.02
+#define FP_POINTING_SCROLLING_DPI 1
+// #define FP_SLOW_DRAGSCROLL
+// #define FP_DRAGSCROLL_DENOMINATOR 10;
+#define FP_POINTING_SCROLLING_DPI 1
 #define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
 #define FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY 1
-#define SPLIT_USB_DETECT
+// #define SPLIT_USB_DETECT
 
 /* key matrix size */
 // Rows are doubled-up
@@ -80,8 +83,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #define SERIAL_USART_TX_PIN GP0     // USART TX pin
 #define SERIAL_USART_RX_PIN GP1     // USART RX pin
 // NOTE: this needs to be changed when building the right side as well
-// #define SERIAL_USART_TX_PIN GP0
-// #define SERIAL_USART_RX_PIN GP1
+// TX => GP4
+// RX => GP5
 
 #define RGB_DI_PIN GP25
 #ifdef RGBLIGHT_ENABLE
@@ -106,8 +109,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifdef RGB_MATRIX_ENABLE
     #define SPLIT_TRANSPORT_MIRROR
-    #define RGB_MATRIX_LED_COUNT 42 // Number of LEDs
-    #define RGB_MATRIX_SPLIT { 21, 21 }
+    #define RGB_MATRIX_LED_COUNT 36 // Number of LEDs
+    #define RGB_MATRIX_SPLIT { 18, 18 }
     #define RGB_MATRIX_MAXIMUM_BRIGHTNESS 130
     #define RGB_MATRIX_STARTUP_HUE 35
     #define RGB_MATRIX_STARTUP_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
