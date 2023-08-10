@@ -12,7 +12,7 @@
 enum combos {
     JK_ESC,
     DF_BKSPC,
-    SF_TAB,
+    SF_SCROLL_TOGGLE,
     JKLQUOTE_MOUSE,
     PQUOTE_DEL,
     QWER_GAME,
@@ -38,7 +38,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 const uint16_t PROGMEM esc_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM bkspc_combo[] = {KC_D, KC_F, COMBO_END};
-const uint16_t PROGMEM tab_combo[] = {KC_S, KC_F, COMBO_END};
+const uint16_t PROGMEM scroll_combo[] = {KC_S, KC_F, COMBO_END};
 const uint16_t PROGMEM mouse_combo[] = {KC_J, KC_K, KC_L, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM del_combo[] = {KC_P, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM gl_combo[] = {KC_Q, KC_W, KC_E, KC_R, COMBO_END};
@@ -49,7 +49,7 @@ const uint16_t PROGMEM rgb_combo[] = {KC_R, KC_G, KC_B, COMBO_END};
 combo_t key_combos[] = {
     [JK_ESC] = COMBO(esc_combo, KC_ESC),
     [DF_BKSPC] = COMBO(bkspc_combo, KC_BSPC),
-    [SF_TAB] = COMBO(tab_combo, KC_TAB),
+    [SF_SCROLL_TOGGLE] = COMBO(scroll_combo, FP_SCROLL_TOG),
     [JKLQUOTE_MOUSE] = COMBO(mouse_combo, TO(_MOUSE)),
     [PQUOTE_DEL] = COMBO(del_combo, KC_DEL),
     [QWER_GAME] = COMBO(gl_combo, TO(_GAME)),

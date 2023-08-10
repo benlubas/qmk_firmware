@@ -477,13 +477,13 @@ bool fp_process_record_pointing(uint16_t keycode, keyrecord_t *record) {
             break;
         case FP_SCROLL_MOMENT:
             if (record->event.pressed) {
-                layer_on(AUTO_MOUSE_DEFAULT_LAYER);
+                // layer_on(AUTO_MOUSE_DEFAULT_LAYER);
                 fp_scroll_keycode_set(true);
             } else {
-                layer_off(AUTO_MOUSE_DEFAULT_LAYER);
+                // layer_off(AUTO_MOUSE_DEFAULT_LAYER);
                 fp_scroll_keycode_set(false);
             }
-            break;
+            return false;
         case FP_SCROLL_TOG:
             if (record->event.pressed) {
                 fp_scroll_keycode_toggle();
