@@ -28,7 +28,6 @@ FAUXCLICKY_ENABLE = no      # Use buzzer to emulate clicky switches
 ENCODER_ENABLE ?= no
 EXTRAFLAGS     += -flto     # macros enable or disable
 MOUSEKEY_ENABLE = yes
-COMBO_ENABLE = yes
 
 SPLIT_KEYBOARD = yes
 SERIAL_DRIVER = vendor

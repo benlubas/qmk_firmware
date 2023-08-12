@@ -267,34 +267,6 @@ uint32_t fp_zoom_unset_hold(uint32_t triger_time, void *cb_arg) {
     return 0;
 }
 
-// #ifdef FP_SLOW_DRAGSCROLL
-// // This code is slightly modified from: https://blog.slinkyworks.net/ploopy-classic/
-// static int _dragscroll_accumulator_x = 0;
-// static int _dragscroll_accumulator_y = 0;
-// report_mouse_t apply_slow_dragscroll(report_mouse_t mouse_report) {
-//     if (fp_scroll_layer_get() || fp_scroll_keycode_get()) {
-//         _dragscroll_accumulator_x += mouse_report.x;
-//         _dragscroll_accumulator_y += mouse_report.y;
-//
-//         int div_x = _dragscroll_accumulator_x / FP_DRAGSCROLL_DENOMINATOR;
-//         int div_y = _dragscroll_accumulator_y / FP_DRAGSCROLL_DENOMINATOR;
-//
-//         if (div_x != 0) {
-//             mouse_report.h += div_x;
-//             _dragscroll_accumulator_x -= div_x * FP_DRAGSCROLL_DENOMINATOR;
-//         }
-//
-//         if (div_y != 0) {
-//             mouse_report.v += div_y;
-//             _dragscroll_accumulator_y -= div_y * FP_DRAGSCROLL_DENOMINATOR;
-//         }
-//         mouse_report.x = 0;
-//         mouse_report.y = 0;
-//     }
-//
-//     return mouse_report;
-// }
-// #endif
 
 report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
 #ifdef CONSOLE_ENABLE
@@ -362,9 +334,9 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
     }
 #endif
 
-// #ifdef FP_SLOW_DRAGSCROLL
-//     mouse_report = apply_slow_dragscroll(mouse_report);
-// #endif
+#ifdef FP_SLOW_DRAGSCROLL
+    mouse_report = apply_slow_dragscroll(mouse_report);
+#endif
 
     mouse_report = pointing_device_task_user(mouse_report);
     return mouse_report;

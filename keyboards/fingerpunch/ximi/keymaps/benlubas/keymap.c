@@ -22,20 +22,56 @@ enum combos {
     CLR_EPROM,
 };
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {  // switch for one case is just so it's easier to extend later
-        case JK_ESC:
-            if (record->event.pressed) {
-                layer_clear();
-                layer_on(_HOME);
-                tap_code16(KC_ESC);
-            } else {
-                // when it's released
-            }
-            break;
-    }
-    return 1;
+enum custom_keycodes {
+    DRAG_SCROLL = FP_SAFE_RANGE,
 };
+
+bool set_scrolling = false;
+
+// Variables to store accumulated scroll values
+float scroll_accumulated_h = 0;
+float scroll_accumulated_v = 0;
+
+// Function to handle mouse reports and perform drag scrolling from:
+// https://docs.qmk.fm/#/feature_pointing_device?id=advanced-drag-scroll
+report_mouse_t pointing_device_task_user(report_mouse_t mouse_report) {
+    if (set_scrolling) {
+        // Calculate and accumulate scroll values based on mouse movement and divisors
+        scroll_accumulated_h += (float)mouse_report.x / SCROLL_DIVISOR_H;
+        scroll_accumulated_v += (float)mouse_report.y / SCROLL_DIVISOR_V;
+
+        // Assign integer parts of accumulated scroll values to the mouse report
+        mouse_report.h = (int8_t)scroll_accumulated_h;
+        mouse_report.v = -(int8_t)scroll_accumulated_v;
+
+        // Update accumulated scroll values by subtracting the integer parts
+        scroll_accumulated_h -= (int8_t)scroll_accumulated_h;
+        scroll_accumulated_v -= (int8_t)scroll_accumulated_v;
+
+        // Clear the X and Y values of the mouse report
+        mouse_report.x = 0;
+        mouse_report.y = 0;
+    }
+    return mouse_report;
+}
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (keycode == DRAG_SCROLL && record->event.pressed) {
+        set_scrolling = true;
+    } else {
+        set_scrolling = false;
+    }
+    return true;
+}
+
+// set the scroll moment key as a mouse key so that it holds the auto mouse layer active
+bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
+    switch(keycode) {
+        case DRAG_SCROLL:
+            return true;
+    }
+    return false;
+}
 
 const uint16_t PROGMEM esc_combo[] = {KC_J, KC_K, COMBO_END};
 const uint16_t PROGMEM bkspc_combo[] = {KC_D, KC_F, COMBO_END};
@@ -205,14 +241,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     */
 
     [_MOUSE] = LAYOUT_ximi(
-        _______, _______,  _______,    FP_SCROLL_MOMENT,    _______,    _______,           KC_TRNS,   KC_WH_U,   KC_WH_D, KC_TRNS,  KC_TRNS,    KC_TRNS,
+        _______, _______,  _______,    DRAG_SCROLL,    _______,    _______,           KC_TRNS,   KC_WH_U,   KC_WH_D, KC_TRNS,  KC_TRNS,    KC_TRNS,
         _______, _______,  KC_BTN1,    KC_BTN3,    KC_BTN2,    _______,                    KC_MS_L,   KC_MS_D,   KC_MS_U, KC_MS_R,  TO(_HOME),  KC_TRNS,
         _______, _______,  _______,    _______,    _______,    _______,                    KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
         KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
                            C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     ),
     [_AUTO_MOUSE] = LAYOUT_ximi(
-        _______, _______,  _______,    FP_SCROLL_MOMENT,    _______,    _______,           KC_TRNS,   KC_WH_U,   KC_WH_D, KC_TRNS,  KC_TRNS,    KC_TRNS,
+        _______, _______,  _______,    DRAG_SCROLL,    _______,    _______,           KC_TRNS,   KC_WH_U,   KC_WH_D, KC_TRNS,  KC_TRNS,    KC_TRNS,
         _______, _______,  KC_BTN1,    KC_BTN3,    KC_BTN2,    _______,                    KC_MS_L,   KC_MS_D,   KC_MS_U, KC_MS_R,  KC_TRNS,  KC_TRNS,
         _______, _______,  _______,    _______,    _______,    _______,                    KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
         KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
