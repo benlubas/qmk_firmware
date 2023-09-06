@@ -61,9 +61,6 @@ bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
 }
 
 enum combos {
-    JK_ESC,
-    DF_BKSPC,
-    SF_SCROLL_TOGGLE,
     JKLQUOTE_MOUSE,
     PQUOTE_DEL,
     QWER_GAME,
@@ -89,15 +86,29 @@ const uint16_t PROGMEM eprom_combo[] = {KC_E, KC_D, KC_R, KC_F, COMBO_END};
 
 // combo mods
 const uint16_t PROGMEM lctrl_combo[] = {KC_F, KC_D, COMBO_END};
-const uint16_t PROGMEM lalt_combo[] = {KC_F, KC_A, COMBO_END};
 const uint16_t PROGMEM lsuper_combo[] = {KC_F, KC_S, COMBO_END};
+const uint16_t PROGMEM lalt_combo[] = {KC_F, KC_A, COMBO_END};
 const uint16_t PROGMEM rctrl_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM ralt_combo[] = {KC_J, KC_L, COMBO_END};
-const uint16_t PROGMEM rsuper_combo[] = {KC_J, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM rsuper_combo[] = {KC_J, KC_L, COMBO_END};
+const uint16_t PROGMEM ralt_combo[] = {KC_J, KC_QUOT, COMBO_END};
+
+// shorter tapping term and combo must be held for combo mods
+// uint16_t get_combo_term(uint16_t index, combo_t *combo) {
+//     // or with combo index, i.e. its name from enum.
+//     switch (index) {
+//         case L_ALT:
+//         case L_CTRL:
+//         case L_SUPER:
+//         case R_ALT:
+//         case R_CTRL:
+//         case R_SUPER:
+//             return 25;
+//     }
+//
+//     return COMBO_TERM;
+// }
 
 combo_t key_combos[] = {
-    [JK_ESC] = COMBO(esc_combo, KC_ESC),
-    [DF_BKSPC] = COMBO(bkspc_combo, KC_BSPC),
     [JKLQUOTE_MOUSE] = COMBO(mouse_combo, TO(_MOUSE)),
     [PQUOTE_DEL] = COMBO(del_combo, KC_DEL),
     [QWER_GAME] = COMBO(gl_combo, TO(_GAME)),
@@ -105,9 +116,9 @@ combo_t key_combos[] = {
     [RFTG_RESET] = COMBO(reset_combo, QK_RBT),
     [RGB_LAYER] = COMBO(rgb_combo, TO(_RGB)),
     [CLR_EPROM] = COMBO(eprom_combo, EE_CLR),
-    [R_SUPER] = COMBO(rsuper_combo, OSM(MOD_RCTL)),
-    [R_CTRL] = COMBO(rctrl_combo, OSM(MOD_RALT)),
-    [R_ALT] = COMBO(ralt_combo, OSM(MOD_RGUI)),
+    [R_SUPER] = COMBO(rsuper_combo, OSM(MOD_RGUI)),
+    [R_CTRL] = COMBO(rctrl_combo, OSM(MOD_RCTL)),
+    [R_ALT] = COMBO(ralt_combo, OSM(MOD_RALT)),
     [L_SUPER] = COMBO(lsuper_combo, OSM(MOD_LGUI)),
     [L_CTRL] = COMBO(lctrl_combo, OSM(MOD_LCTL)),
     [L_ALT] = COMBO(lalt_combo, OSM(MOD_LALT)),
@@ -141,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     * ├─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┤
     * │  0  │  4  │  5  │  6  │ ENTR│       │  ←  │  ↓  │  ↑  │  →  │ HOME│
     * ├─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┤
-    * │     │  1  │  2  │  3  │  .  │       │ FN  │ FN  │     │     │     │
+    * │  .  │  1  │  2  │  3  │  +  │       │ FN  │ FN  │     │     │     │
     * └─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┘
     *    ┌─────┐    ┌─────┐                           ┌─────┐   ┌─────┐
     *    │Mute │    │ GUI ├─────┐               ┌─────┤ ALT │   │Mute │
@@ -153,8 +164,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_NAV] = LAYOUT_ximi(
         KC_TAB,  KC_TAB,   KC_7,    KC_8,    KC_9,    KC_MINUS,                           C(S(KC_TAB)), KC_TRNS, KC_TRNS, C(KC_TAB),KC_BSPC,  KC_TRNS,
         KC_LCTL, KC_0,     KC_4,    KC_5,    KC_6,    KC_ENT,                             KC_LEFT,   KC_DOWN,   KC_UP,   KC_RIGHT, TO(_HOME), KC_TRNS,
-        KC_LSFT, KC_TRNS,  KC_1,    KC_2,    KC_3,    KC_DOT,                             MO(_FN),   MO(_FN),   KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS,
-        KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
+        KC_LSFT, MT(MOD_LSFT, KC_DOT),  KC_1,    KC_2,    KC_3,    S(KC_EQL),                             MO(_FN),   MO(_FN),   KC_TRNS, KC_TRNS,  KC_TRNS,   KC_TRNS,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     ),
     /*
@@ -176,7 +187,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_TAB,   KC_F7,    KC_F8,    KC_F9,    _______,                             KC_F11,    KC_F12,  KC_F13,     KC_F14,     KC_F15,     _______,
         KC_LCTL, KC_F10,   KC_F4,    KC_F5,    KC_F6,    _______,                             KC_F16,    KC_F17,  KC_F18,     KC_F19,     KC_F20,     _______,
         KC_LSFT, KC_TRNS,  KC_F1,    KC_F2,    KC_F3,    _______,                             _______,   _______, _______,    _______,    _______,    _______,
-        KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     ),
     /*
@@ -198,7 +209,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, S(KC_1),  S(KC_2),   S(KC_EQL),  KC_EQL,   KC_MINUS,                          S(KC_5),    S(KC_7),     S(KC_8),    S(KC_9),    S(KC_0), KC_TRNS,
         KC_LCTL, S(KC_3),  KC_GRAVE,  S(KC_BSLS), KC_LBRC,  KC_RBRC,                           S(KC_RBRC), S(KC_LBRC),  S(KC_SCLN), KC_SCLN,    KC_SLSH, KC_TRNS,
         KC_LSFT, KC_TRNS,  S(KC_GRV), KC_BSLS,    S(KC_4),  KC_TRNS,                           KC_TRNS,    S(KC_MINUS), S(KC_6),    S(KC_SLSH), KC_TRNS, KC_TRNS,
-        KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
+        KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
         C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     ),
     /*
@@ -264,8 +275,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                            C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     ),
     [_AUTO_MOUSE] = LAYOUT_ximi(
-        _______, _______,  _______,    DRAG_SCROLL,    _______,    _______,           KC_TRNS,   KC_WH_U,   KC_WH_D, KC_TRNS,  KC_TRNS,    KC_TRNS,
-        _______, _______,  KC_BTN1,    KC_BTN3,    KC_BTN2,    _______,                    KC_MS_L,   KC_MS_D,   KC_MS_U, KC_MS_R,  KC_TRNS,  KC_TRNS,
+        _______, _______,  _______,    DRAG_SCROLL,    _______,    _______,           KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
+        _______, _______,  KC_BTN1,    KC_BTN3,    KC_BTN2,    _______,                    KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
         _______, _______,  _______,    _______,    _______,    _______,                    KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
         KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
                            C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
