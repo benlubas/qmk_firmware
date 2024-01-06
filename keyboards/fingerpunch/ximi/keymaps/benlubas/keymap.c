@@ -244,14 +244,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,  _______,    DRAG_SCROLL,    _______,    _______,           KC_TRNS,   KC_WH_U,   KC_WH_D, KC_TRNS,  KC_TRNS,    KC_TRNS,
         _______, _______,  KC_BTN1,    KC_BTN3,    KC_BTN2,    _______,                    KC_MS_L,   KC_MS_D,   KC_MS_U, KC_MS_R,  TO(_HOME),  KC_TRNS,
         _______, _______,  _______,    _______,    _______,    _______,                    KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
-        KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
+        KC_MUTE,           _______,    OSL(_NAV),  KC_LGUI,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
                            C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     ),
     [_AUTO_MOUSE] = LAYOUT_ximi(
         _______, _______,  _______,    DRAG_SCROLL,    _______,    _______,           KC_TRNS,   KC_WH_U,   KC_WH_D, KC_TRNS,  KC_TRNS,    KC_TRNS,
         _______, _______,  KC_BTN1,    KC_BTN3,    KC_BTN2,    _______,                    KC_MS_L,   KC_MS_D,   KC_MS_U, KC_MS_R,  KC_TRNS,  KC_TRNS,
         _______, _______,  _______,    _______,    _______,    _______,                    KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
-        KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
+        KC_MUTE,           _______,    OSL(_NAV),  KC_LGUI,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
                            C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     )
 };
