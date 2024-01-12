@@ -203,7 +203,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TRNS, KC_ESC,  KC_Q, KC_W,  KC_E,   KC_R,                          TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME),
         KC_LCTL, KC_LSFT, KC_A, KC_S,   KC_D,  KC_F,                          TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME),
         KC_LSFT, KC_LCTL, KC_Z, KC_X,   KC_C,  KC_V,                          TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME),
-        KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
+        KC_MUTE,           KC_TAB, KC_SPC, KC_G,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
         C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     ),
 
