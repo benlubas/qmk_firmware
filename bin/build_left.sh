@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "make fingerpunch/ximi:benlubas FP_TRACKBALL_RIGHT_ONLY=yes RGB_MATRIX_ENABLE=no ENCODER_ENABLE=yes AUDIO_ENABLE=no HAPTIC_ENABLE=no"
 make fingerpunch/ximi:benlubas FP_TRACKBALL_RIGHT_ONLY=yes RGB_MATRIX_ENABLE=no ENCODER_ENABLE=yes AUDIO_ENABLE=no HAPTIC_ENABLE=no

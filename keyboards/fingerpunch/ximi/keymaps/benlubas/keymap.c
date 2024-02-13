@@ -51,6 +51,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
+    /* Disable combos on the game layer */
+    if (layer_state_is(_GAME)) {
+        return false;
+    }
+
+    return true;
+}
+
 // set the scroll moment key as a mouse key so that it holds the auto mouse layer active
 bool is_mouse_record_user(uint16_t keycode, keyrecord_t* record) {
     switch(keycode) {
@@ -227,10 +236,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                           └─────┘
     */
     [_GAME] = LAYOUT_ximi(
-        KC_TRNS, KC_ESC,  KC_Q, KC_W,  KC_E,   KC_R,                          TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME),
-        KC_LCTL, KC_LSFT, KC_A, KC_S,   KC_D,  KC_F,                          TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME),
-        KC_LSFT, KC_LCTL, KC_Z, KC_X,   KC_C,  KC_V,                          TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME), TO(_HOME),
-        KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
+        KC_TRNS, KC_ESC,  KC_Q, KC_W,  KC_E,   KC_R,                          KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+        KC_LCTL, KC_LSFT, KC_A, KC_S,   KC_D,  KC_F,                          KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+        KC_LSFT, KC_LCTL, KC_Z, KC_X,   KC_C,  KC_V,                          KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,  KC_TRNS,
+        KC_MUTE,           KC_LALT, KC_SPC, KC_G,              TO(_HOME),   TO(_HOME),  TO(_HOME),          KC_MUTE,
         C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     ),
 
@@ -271,14 +280,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______,  _______,    DRAG_SCROLL,    _______,    _______,           KC_TRNS,   KC_WH_U,   KC_WH_D, KC_TRNS,  KC_TRNS,    KC_TRNS,
         _______, _______,  KC_BTN1,    KC_BTN3,    KC_BTN2,    _______,                    KC_MS_L,   KC_MS_D,   KC_MS_U, KC_MS_R,  TO(_HOME),  KC_TRNS,
         _______, _______,  _______,    _______,    _______,    _______,                    KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
-        KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
+        KC_MUTE,           KC_ESC,  OSL(_NAV), KC_LGUI,              OSL(_SYM),   KC_SPC,  _______,          KC_MUTE,
                            C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     ),
     [_AUTO_MOUSE] = LAYOUT_ximi(
         _______, _______,  _______,    DRAG_SCROLL,    _______,    _______,           KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
         _______, _______,  KC_BTN1,    KC_BTN3,    KC_BTN2,    _______,                    KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
         _______, _______,  _______,    _______,    _______,    _______,                    KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
-        KC_MUTE,           KC_LGUI, OSL(_NAV), KC_LCTL,              OSL(_SYM),   KC_SPC,  KC_RALT,          KC_MUTE,
+        KC_MUTE,           KC_ESC,  OSL(_NAV), KC_LGUI,              OSL(_SYM),   KC_SPC,  _______,          KC_MUTE,
                            C(KC_Z), C(S(KC_Z)), C(KC_Y),              KC_VOLD,      KC_MUTE, KC_VOLU
     )
 };

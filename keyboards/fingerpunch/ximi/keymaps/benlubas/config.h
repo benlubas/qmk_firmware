@@ -7,6 +7,7 @@
 #define COMBO_MUST_HOLD_MODS // if a combo triggers a modifier, only trigger when the combo is held
 #define COMBO_HOLD_TERM 150  // how long at least one of the combo keys must be held to trigger
 #define TAPPING_TERM 200
+#define COMBO_SHOULD_TRIGGER
 
 #define HOLD_ON_OTHER_KEY_PRESS
 
@@ -25,9 +26,18 @@
 
 
 #define POINTING_DEVICE_AUTO_MOUSE_ENABLE
+
+// These values are integers
+#define FP_AM_ACTIVE_THRESHOLD 2 // the number of times the mouse has to report over the A_M_T_SENSE
+// to activate the mouse layer
 #define FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY 1
+#define FP_AUTO_MOUSE_TRACKBALL_KEEP_ACTIVE_SENSE 1 // if the mouse layer is already active, don't
+// deactivate it if the trackball is still moving.
+
+// #define AUTO_MOUSE_DEBOUNCE 25 // default 25
+
 #define AUTO_MOUSE_DEFAULT_LAYER 7
-#define AUTO_MOUSE_TIME 800 // default 650
+#define AUTO_MOUSE_TIME 700 // default 650
 
 #define POINTING_DEVICE_INVERT_X
 #define FP_POINTING_SCROLLING_DPI 1 // can't go lower than 1 (100 dpi)

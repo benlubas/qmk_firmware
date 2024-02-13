@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "making substitutions:"
 echo "RX from GP1  to GP5"

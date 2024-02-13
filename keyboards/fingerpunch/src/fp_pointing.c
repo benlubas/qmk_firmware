@@ -31,6 +31,7 @@ static bool sniping_layer_enabled = false;
 static bool zooming_keycode_enabled = false;
 static bool zooming_layer_enabled = false;
 static bool zooming_hold = false;
+static bool auto_mouse_keep_alive = false;
 
 uint8_t fp_get_cpi_value_from_mode(uint8_t mode_index) {
     switch (mode_index) {
@@ -332,6 +333,11 @@ report_mouse_t pointing_device_task_kb(report_mouse_t mouse_report) {
         mouse_report.x = x;
         mouse_report.y = y;
     }
+
+    if (mouse_report.x > 0 || mouse_report.y > 0) {
+        auto_mouse_keep_alive = true;
+    }
+
 #endif
 
 #ifdef FP_SLOW_DRAGSCROLL
@@ -424,17 +430,34 @@ void pointing_device_init_kb(void) {
 }
 
 #ifdef FP_TRACKBALL_ENABLE
-// Override when using a trackball so that you can account for acciental triggers due to a sensitive sensor
+// Override when using a trackball so that you can account for accidental triggers due to a sensitive sensor
+static int mouse_active_counter = 0;
 bool auto_mouse_activation(report_mouse_t mouse_report) {
     // If we're in sniping mode, lower the threshold, otherwise give it some room to move for accidental triggers of auto mouse layer
+    bool keep_alive = auto_mouse_keep_alive;
+    auto_mouse_keep_alive = false;
     if (fp_snipe_layer_get() || fp_snipe_keycode_get()) {
         return fabs(mouse_report.x) >= 0.5 || fabs(mouse_report.y) >= 0.5 || fabs(mouse_report.h) >= 0.5 || fabs(mouse_report.v) >= 0.5 || mouse_report.buttons;
-    } else {
-        return fabs(mouse_report.x) >= FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY ||
-               fabs(mouse_report.y) >= FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY ||
-               fabs(mouse_report.h) >= FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY ||
-               fabs(mouse_report.v) >= FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY ||
-               mouse_report.buttons;
+    } else if (get_auto_mouse_toggle()) {
+        // when the auto mouse layer is already on, make it easier to keep the mouse layer on.
+        // TODO: this variable should track the mouse movement over the last AUTO_MOUSE_DEBOUNCE ms
+        return keep_alive;
+    }
+    else {
+        bool would_activate = fabs(mouse_report.x) >= FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY ||
+            fabs(mouse_report.y) >= FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY ||
+            fabs(mouse_report.h) >= FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY ||
+            fabs(mouse_report.v) >= FP_AUTO_MOUSE_TRACKBALL_SENSITIVITY ||
+            mouse_report.buttons;
+
+        if (would_activate) {
+            mouse_active_counter += 1;
+            if (mouse_active_counter > FP_AM_ACTIVE_THRESHOLD) {
+                mouse_active_counter = 0;
+                return true;
+            }
+        }
+        return false;
     }
 }
 #endif
