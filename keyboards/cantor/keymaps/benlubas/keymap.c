@@ -7,28 +7,29 @@
 #define _GAME 4
 #define _RGB 5
 #define _MOUSE 6
-#define _AUTO_MOUSE 7
+#define _STENO 7
 
 layer_state_t layer_state_set_user(layer_state_t state) {
     uint16_t highest_layer = get_highest_layer(state);
     switch (highest_layer) {
-    case _MOUSE:
-    case _GAME:
-    case _NAV:
-    case _SYM:
-      setPinInputLow(C13);
-      break;
-    default:
-      setPinInputHigh(C13);
-      break;
+        case _MOUSE:
+        case _GAME:
+        case _NAV:
+        case _SYM:
+            setPinInputLow(C13);
+            break;
+        default:
+            setPinInputHigh(C13);
+            break;
     }
-    if (highest_layer == _GAME || highest_layer == _MOUSE) {
-      combo_disable();
+    // disable combos on GAME, RGB, MOUSE, and STENO
+    if (highest_layer >= _GAME) {
+        combo_disable();
     } else {
-      combo_enable();
+        combo_enable();
     }
-  return state;
-}
+    return state;
+};
 
 // this is how I do it in ximi, but this ^ does the lights too
 // bool combo_should_trigger(uint16_t combo_index, combo_t *combo, uint16_t keycode, keyrecord_t *record) {
@@ -38,6 +39,26 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 //     }
 //     return true;
 // }
+
+enum custom_keys {
+    PLOGGLE = SAFE_RANGE, // toggle plover
+};
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case PLOGGLE:
+            if (record->event.pressed) {
+                // crfok,
+                // this is the string that toggles plover (with my weird key layout), it's the qwerty mapped steno for the word Ploggle
+                SEND_STRING(SS_DOWN(X_C)SS_DOWN(X_R)SS_DOWN(X_F)SS_DOWN(X_O)SS_DOWN(X_K)SS_DOWN(X_COMM));
+            } else { // on release
+                SEND_STRING(SS_UP(X_C)SS_UP(X_R)SS_UP(X_F)SS_UP(X_O)SS_UP(X_K)SS_UP(X_COMM));
+                layer_invert(_STENO);
+            }
+            break;
+    }
+    return true;
+};
 
 enum combos {
     JKLQUOTE_MOUSE,
@@ -52,6 +73,7 @@ enum combos {
     R_SUPER,
     R_CTRL,
     R_ALT,
+    STENO,
 };
 
 const uint16_t PROGMEM mouse_combo[] = {KC_J, KC_K, KC_L, KC_QUOT, COMBO_END};
@@ -60,14 +82,15 @@ const uint16_t PROGMEM gl_combo[] = {KC_Q, KC_W, KC_E, KC_R, COMBO_END};
 const uint16_t PROGMEM boot_combo[] = {KC_X, KC_C, KC_V, KC_B, COMBO_END};
 const uint16_t PROGMEM reset_combo[] = {KC_R, KC_T, KC_F, KC_G, COMBO_END};
 const uint16_t PROGMEM eprom_combo[] = {KC_E, KC_D, KC_R, KC_F, COMBO_END};
+const uint16_t PROGMEM steno_combo[] = {KC_S, KC_D, KC_F, KC_J, KC_K, KC_L, COMBO_END};
 
 // combo mods
-const uint16_t PROGMEM lctrl_combo[] = {KC_F, KC_D, COMBO_END};
-const uint16_t PROGMEM lsuper_combo[] = {KC_F, KC_S, COMBO_END};
-const uint16_t PROGMEM lalt_combo[] = {KC_F, KC_A, COMBO_END};
-const uint16_t PROGMEM rctrl_combo[] = {KC_J, KC_K, COMBO_END};
-const uint16_t PROGMEM rsuper_combo[] = {KC_J, KC_L, COMBO_END};
-const uint16_t PROGMEM ralt_combo[] = {KC_J, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM lctrl_combo[] = {KC_F, KC_R, COMBO_END};
+const uint16_t PROGMEM lsuper_combo[] = {KC_D, KC_E, COMBO_END};
+const uint16_t PROGMEM lalt_combo[] = {KC_S, KC_W, COMBO_END};
+const uint16_t PROGMEM rctrl_combo[] = {KC_J, KC_U, COMBO_END};
+const uint16_t PROGMEM rsuper_combo[] = {KC_K, KC_I, COMBO_END};
+const uint16_t PROGMEM ralt_combo[] = {KC_L, KC_O, COMBO_END};
 
 combo_t key_combos[] = {
     [JKLQUOTE_MOUSE] = COMBO(mouse_combo, TO(_MOUSE)),
@@ -82,6 +105,7 @@ combo_t key_combos[] = {
     [L_SUPER] = COMBO(lsuper_combo, OSM(MOD_LGUI)),
     [L_CTRL] = COMBO(lctrl_combo, OSM(MOD_LCTL)),
     [L_ALT] = COMBO(lalt_combo, OSM(MOD_LALT)),
+    [STENO] = COMBO(steno_combo, PLOGGLE),
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -103,7 +127,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         KC_TAB,  KC_Q,    KC_W,     KC_E,    KC_R,       KC_T,                         KC_Y, KC_U,    KC_I,    KC_O,    KC_P,        KC_BSPC,
         KC_LCTL, KC_A,    KC_S,     KC_D,    KC_F,       KC_G,                         KC_H, KC_J,    KC_K,    KC_L,    KC_QUOT,     KC_NO,
         KC_LSFT, MT(MOD_LSFT, KC_Z),KC_X,    KC_C,       KC_V,   KC_B,         KC_N,   KC_M, KC_COMM, KC_DOT,  MT(MOD_RSFT, KC_ENT), KC_RSFT,
-                                  KC_ESC, OSL(_NAV), QK_REP,              OSL(_SYM),   KC_SPC,  CW_TOGG
+        KC_ESC, OSL(_NAV), QK_REP,              OSL(_SYM),   KC_SPC,  CW_TOGG
     ),
     /*
     * ┌─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┐
@@ -190,7 +214,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     /*
     * ┌─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┐
-    * │     │     │     │     │     │       │     │  ↓  │  ↑  │     │     │
+    * │     │     │  📜 │     │     │       │     │  ↓  │  ↑  │     │     │
     * ├─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┤
     * │     │ 🖱️1 │ 🖱️3 │ 🖱️2 │     │       │ 🖰 ← │ 🖰↓  │ 🖰↑  │ 🖰→  │ HOME│
     * ├─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┤
@@ -202,11 +226,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     *                     └─────┤ CTL │   │ SYM ├─────┘
     *                           └─────┘   └─────┘
     */
-
     [_MOUSE] = LAYOUT_split_3x6_3(
-        KC_TAB,  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,           KC_TRNS,   KC_WH_D,   KC_WH_U, KC_TRNS,  KC_TRNS,    KC_TRNS,
+        KC_TAB,  KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,           KC_TRNS,   KC_WH_U,   KC_WH_D, KC_TRNS,  KC_TRNS,    KC_TRNS,
         KC_LCTL, KC_TRNS,  KC_BTN1,    KC_BTN3,    KC_BTN2,    KC_TRNS,           KC_MS_L,   KC_MS_D,   KC_MS_U, KC_MS_R,  TO(_HOME), KC_TRNS,
         KC_LSFT, KC_TRNS,  KC_TRNS,    KC_TRNS,    KC_TRNS,    KC_TRNS,           KC_TRNS,   KC_TRNS,   KC_TRNS, KC_TRNS,  KC_TRNS,    KC_TRNS,
-                                             KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS
-  ),
+        KC_TRNS, KC_TRNS, KC_TRNS,           KC_TRNS, KC_TRNS, KC_TRNS
+    ),
+
+    /* Pretty hacky steno layout that requires some custom settings in plover
+    * ┌─────┬─────┬─────┬─────┬─────┐       ┌─────┬─────┬─────┬─────┬─────┐
+    * │  #  │  T  │  P  │  H  │  *  │       │  F  │  P  │     │     │ HOME│
+    * ├─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┤
+    * │  S  │  K  │  W  │  R  │  *  │       │  R  │  B  │  L  │  T  │  D  │
+    * ├─────┼─────┼─────┼─────┼─────┤       ├─────┼─────┼─────┼─────┼─────┤
+    * │     │     │     │     │     │       │     │     │  G  │  S  │  Z  │
+    * └─────┴─────┴─────┴─────┴─────┘       └─────┴─────┴─────┴─────┴─────┘
+    *    ┌─────┐    ┌─────┐                           ┌─────┐   ┌─────┐
+    *    │Mute │    │  A  ├─────┐               ┌─────┤     │   │Mute │
+    *    └─────┘    └─────┤  O  ├─────┐   ┌─────┤  U  ├─────┘   └─────┘
+    *                     └─────┤     │   │  E  ├─────┘
+    *                           └─────┘   └─────┘
+    */
+    [_STENO] = LAYOUT_split_3x6_3(
+        _______, KC_Q,    KC_W,     KC_C,    KC_R,    KC_T,                   KC_Y,    KC_M,     _______, _______, PLOGGLE,_______,
+        _______, KC_X,    KC_S,     KC_D,    KC_F,    KC_G,                   KC_H,    KC_J,     KC_K,    KC_L,    KC_SCLN,  _______,
+        _______, _______, _______,  _______, _______, _______,                _______, _______,  KC_COMM, KC_DOT,  KC_Z,     _______,
+        KC_A, KC_O, _______,           KC_E, KC_U, _______
+    ),
 };
